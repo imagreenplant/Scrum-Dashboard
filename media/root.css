@@ -1,0 +1,38 @@
+A:link {text-decoration: none; color: gray;}
+A:visited {text-decoration: none; color: #111111;}
+A:active {text-decoration: none}
+A:hover {text-decoration: underline overline; color: red;}
+
+div.sectionbox{
+    width: auto;
+    float: left;
+    font-size: small;
+    padding: 10px;
+}
+
+div#iteration_box{
+    width: 10%;
+}
+
+div#backlog_box{
+}
+
+div#link_box{
+}
+
+div.section{
+    width: 90%;
+}
+
+div.section table.datatable{
+    width: 100%;
+}
+
+table.datatable tbody tr td{
+    padding-left: 15px;
+    border-style: hidden;
+}
+
+div#backlog_box{
+    width: 25%;
+}

@@ -1,0 +1,98 @@
+p.sectionlabel {
+width: 49%;
+display: inline;
+float: left;
+}
+
+p.owner {
+font-style: italic;
+font-size: small;
+padding: 0px;
+color: gray;
+margin-bottom: 0px;
+margin-top:1px;
+margin-right: 20px;
+display: inline;
+float: right;
+}
+
+table.datatable td {
+background-color: rgb(100%,100%,100%);
+}
+
+.point_number {
+    color:purple;
+}
+
+p.story_name {
+    width: 200px;
+    margin-left:20px;
+}
+
+div.section {
+    width: 90%;
+}
+
+.story_header {
+    width: 90%;    
+}
+
+.datatable {
+    width:100%;
+}
+
+tr td.position {
+    font-size: x-small;
+    font-style:italic;
+    color: gray;
+}
+
+div.column1 {
+    width: 33%;
+    float: left;
+}
+
+div.column2 {
+    width: 33%;
+    float: left;
+}
+
+div.column3 {
+    width: 33%;
+    float: left;
+}
+
+tr.prioritized_row1 td{
+    background-color: rgb(75%,50%,50%);  
+}
+
+tr.prioritized_row2 td{
+    background-color: rgb(80%,60%,60%);
+}
+
+tr.prioritized_row3 td{
+    background-color: rgb(85%,70%,70%);
+}
+
+tr.prioritized_row4 td{
+    background-color: rgb(90%,80%,80%);
+}
+
+tr.prioritized_row5 td{
+    background-color: rgb(95%,90%,90%);
+}
+
+tr.prioritized_row6 td{
+    background-color: rgb(100%,100%,100%);
+}
+
+table.datatable tr th {
+    background-color: rgb(60%, 40%, 40%)
+}
+
+div.backlog_info {
+    width: 100%;
+    height: 16px;
+}
+
+

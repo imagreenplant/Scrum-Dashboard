@@ -1,0 +1,132 @@
+body {
+font-family: 'Helvetica','Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+font-size: 10px;
+text-align: left;
+}
+
+#greeting {
+font-size: x-large;
+text-align: center;
+}
+
+p.sectionlabel {
+font-style: italic;
+font-size: small;
+padding: 0px;
+color: gray;
+margin-left: 8px;
+margin-bottom: 0px;
+margin-top:1px;
+margin-right:0px;
+display: inline;
+}
+
+div.sectionbox{
+width: 30%;
+float: left;
+}
+
+div.section {
+border: 1px dashed rgb(80%,80%,80%);
+margin-left: 8px;
+margin-bottom: 8px;
+margin-top:0px;
+margin-right:8px;
+padding-top: 8px;
+padding-bottom: 8px;
+padding-left: 8px;
+padding-right: 8px;
+background-color: rgb(90%,80%,80%);
+-moz-border-radius:1em;
+-webkit-border-radius:1em;
+border-radius:1em;
+}
+table.datatable {
+border-collapse: collapse;
+background: rgb(75%, 80%, 99%);
+border-color: rgb(50%, 51%, 50%);
+border:1px solid rgb(50%,50%,50%);
+border-spacing:0px;
+table-layout: auto;
+}
+
+table.datatable th {
+border-width: 1px;
+padding-top: 0px;
+padding-bottom: 0px;
+padding-left: 4px;
+padding-right: 4px;
+border-style: inset;
+border-color: gray;
+background-color: rgb(80%,95%,100%);
+}
+
+table.datatable td {
+border-width: 1px;
+padding-top: 0px;
+padding-bottom: 0px;
+padding-left: 2px;
+padding-right: 2px;
+border-style: inset;
+border-color: gray;
+background-color: rgb(90%,98%,100%);
+font-size: small;
+}
+
+#bugs {
+width: 500px;
+}
+
+#tasks {
+width: 500px;
+}
+
+tr.taskcomplete td {
+background-color: rgb(50%,70%,50%);
+color: rgb(90%,100%,90%);
+}
+
+/*This entry for main dash page*/
+#bugStats {
+}
+
+#taskStats {
+}
+
+div.error {
+margin: auto;
+width: 400px;
+font-size: medium;
+text-align: center;
+border-width: 1px;
+padding-top: 10px;
+padding-bottom: 10px;
+padding-left: 0;
+padding-right: 0;
+border-color: gray;
+background-color: rgb(90%,98%,100%);
+}
+
+div.error ul {
+text-align: left;
+margin-left: 130px;
+}
+
+div.error p {
+font-size: large;
+margin-top: 3px;
+margin-bottom: 3px;
+}
+
+p#bad_name {
+background-color: rgb(90%,70%,90%);
+width: auto;
+font-size: 200%;
+margin: 0;
+padding-top: 4px;
+padding-bottom: 4px;
+}
+
+div.section table.datatable{
+    width: 100%;
+}

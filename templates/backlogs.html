@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<%
+import mattsWebTools
+mwt = mattsWebTools.MattsWebTools()
+%>
+
+<html lang="en">
+  <head>
+    <title>Backlog Overview</title>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css" />
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/backlogs.css" />
+  </head>
+  <body>
+    <div class="column1">
+    % for backlog_name in backlog_box1.keys():
+        <div class="backlog_box">
+          <div class="backlog_info">
+          <p class="sectionlabel"><a href="http://ninja.sea1.rhapsody.com/projects/${backlog_box1[backlog_name]['project_id']}/stories">${backlog_name}</a></p><p class="owner">owner: ${backlog_box1[backlog_name]['owner']}</p>
+          </div>
+          <div class="section">
+            <table class="datatable">
+                <tr>
+                    <th>#</th>
+                    <th class="story_header">story</th>
+                    <th>points</th>
+                </tr>
+                <% n = 1 %>
+                % for story in backlog_box1[backlog_name]['data'][:items_to_display]:
+                <tr class="prioritized_row${n}">
+                    <td class="position">${n}</td>
+                    <td>${story[0]}</td>
+                    <td class="point_number">${story[1]}</td>
+                </tr>
+                <% n += 1 %>
+                % endfor
+            </table>
+          </div>
+        </div>
+        
+    % endfor
+    </div>
+    <div class="column2">
+    % for backlog_name in backlog_box2.keys():
+        <div class="backlog_box">
+          <div class="backlog_info">
+            <p class="sectionlabel"><a href="http://ninja.sea1.rhapsody.com/projects/${backlog_box2[backlog_name]['project_id']}/stories">${backlog_name}</a></p><p class="owner">owner: ${backlog_box2[backlog_name]['owner']}</p>
+          </div>
+          <div class="section">
+            <table class="datatable">
+                <tr>
+                    <th>#</th>
+                    <th class="story_header">story</th>
+                    <th>points</th>
+                </tr>
+                <% n = 1 %>
+                % for story in backlog_box2[backlog_name]['data'][:items_to_display]:
+                <tr class="prioritized_row${n}">
+                    <td class="position">${n}</td>
+                    <td>${story[0]}</td>
+                    <td class="point_number">${story[1]}</td>
+                </tr>
+                <% n += 1 %>
+                % endfor
+            </table>
+          </div>
+        </div>
+    % endfor
+    </div>
+    <div class="column3">
+    % for backlog_name in backlog_box3.keys():
+        <div class="backlog_box">
+          <div class="backlog_info">
+            <p class="sectionlabel"><a href="http://ninja.sea1.rhapsody.com/projects/${backlog_box3[backlog_name]['project_id']}/stories">${backlog_name}</a></p><p class="owner">owner: ${backlog_box3[backlog_name]['owner']}</p>
+          </div>
+          <div class="section">
+            <table class="datatable">
+                <tr>
+                    <th>#</th>
+                    <th class="story_header">story</th>
+                    <th>points</th>
+                </tr>
+                <% n = 1 %>
+                % for story in backlog_box3[backlog_name]['data'][:items_to_display]:
+                <tr class="prioritized_row${n}">
+                    <td class="position">${n}</td>
+                    <td>${story[0]}</td>
+                    <td class="point_number">${story[1]}</td>
+                </tr>
+                <% n += 1 %>
+                % endfor
+            </table>
+          </div>
+        </div>
+    % endfor
+    </div>
+  </body>
+</html>

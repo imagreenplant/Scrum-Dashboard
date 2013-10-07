@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <title>planning</title>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css"/>
+    <style type="text/css">
+        #avg_velocities_box {float:left;}
+        #velocities_graph {float:left}
+        /*#avg_velocities_box {position: absolute; left: 20px; top: 20px;}*/
+        /*#velocities_graph {position: absolute; left: 20px; top: 120px;}*/
+        #vel_num {font-size: 3em;}
+    </style>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {'packages':['annotatedtimeline']});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+            var data = new google.visualization.DataTable();
+        data.addColumn('date', 'Date');
+        % for blog in velocities.keys():
+        data.addColumn('number', '${blog}');
+        data.addColumn('string', 'iteration');
+        data.addColumn('string', 'points');
+        % endfor
+        data.addRows(${datapoints});
+        <% n = 0  %>
+        %for column_data in velocities.keys():            
+            % for item in velocities[column_data]['velocities']:
+            data.setValue(${n}, 0, new Date(${item[3].year},${item[3].month-1} ,${item[3].day}));
+            data.setValue(${n}, ${velocities[column_data]['column_id']}, ${item[1]});
+            data.setValue(${n}, ${velocities[column_data]['column_id'] + 1}, '${str(item[4])+':'+item[2]}');
+            data.setValue(${n}, ${velocities[column_data]['column_id'] + 2}, '${item[1]} pts');
+            <% n += 1  %>
+            % endfor
+        %endfor
+        //data.addRows([
+        //    % for item in velocities[blog]['velocities']:
+        //  [new Date(${item[3].year},${item[3].month-1} ,${item[3].day}), ${item[1]}, '${str(item[4])+':'+item[2]}', '${item[1]} pts'],
+        //    % endfor
+        //% endfor
+        //[new Date(2008, 1 ,5), 41476, 'Bought Pens','Bought 200k pens'],
+        //]);
+
+        var chart = new google.visualization.AnnotatedTimeLine(document.getElementById('chart_div'));
+        chart.draw(data, {displayAnnotations: true, thickness: 5, zoomStartTime: new Date(2010,6,1)});
+      }
+    </script>
+</head>
+<body>
+    %for backlog in velocities.keys():
+    <div class="avg_velocities_box sectionbox">
+        <p class="sectionlabel">${backlog} average velocity</p>
+        <div class="section">
+            <table class="datatable">
+                <tbody>
+                    <tr>
+                        <th>Lifetime Average</th>
+                        <th>Running Average(last 3)</th>
+                    </tr>
+                    <tr>
+                        <td id="vel_num">${velocities[backlog]['avg_velocity']['total_average']}</td>
+                        <td id="vel_num">${velocities[backlog]['avg_velocity']['running_average']}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    %endfor
+    <div id="velocities_graph">
+        <p class="sectionlabel">velocities over time</p>
+        <div class='section'>
+            <div id='chart_div' style='width: 1000px; height: 300px;'></div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<%
+import mattsWebTools
+mwt = mattsWebTools.MattsWebTools()
+%>
+
+<html lang="en">
+<head>
+    <title>${data['team_name']} dashboard</title>
+    <META HTTP-EQUIV="refresh" CONTENT="600;URL=http://pm.sea1.rhapsody.com/dash/team/${data['team_name']}/" />  <!--refreshes every 10 mins-->
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css"/>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/root.css"/>
+    <style>
+        div#bug_count table.datatable {border:1px;}
+        div#bug_count table.datatable td {font-size:2em;border: 1px solid gray;}
+        div.backlog_type table.datatable td.story_item {font-size:0.8em;}
+        div.backlog_type table.datatable td.point_number,td.position {text-align:center;}
+        div.backlog_type table.datatable td {border: 1px solid gray; align:center; padding:2px;}
+        div#current_backlogs sectionbox {width:auto;}
+        div#current_backlogs {float:left;width:300px;}
+        div#oncall_backlogs {float:left;width:300px;}
+        div#links {float:left;width:200px;margin-left:6px;}
+        div#iteration_links {float:left;width:200px;margin-left:6px;}
+        div.sectionbox {padding:1px;}
+        div.backlog_type table.datatable td.deployed {background-color:#00B700;}
+        div.backlog_type table.datatable td.accepted {background-color:#AAFF98;}
+        div.backlog_type table.datatable td.delivered {background-color:#FFFF66;}
+        div.backlog_type table.datatable td.started {background-color:#A4C2FF;}
+        div.backlog_type table.datatable td.rejected {background-color:#FF9096;}
+    </style>
+</head>
+<body>
+    %if 'current_backlogs' in data.keys():
+    <div id="current_backlogs" class="backlog_type">
+        %for current_backlog in data['current_backlogs']:
+        <div class="sectionbox">
+          <p class="sectionlabel"><a href="${current_backlog['url']}">${current_backlog['description']}</a></p>
+          <div class="section">
+            <table class="datatable">
+                <tr>
+                    <th class="story_header">story</th>
+                    <th>points</th>
+                    <th>status</th>
+                </tr>
+                % for story in current_backlog['stories']:
+                <tr>
+                    <td class="story_item">${mwt.truncate(story[0],50)}</td>
+                    <td class="point_number">${story[1]}</td>
+                    %if story[3] == 'delivered':
+                    <td class="position delivered">${story[3]}</td>
+                    %elif story[3] == 'accepted':
+                    <td class="position accepted">${story[3]}</td>
+                    %elif story[3] == 'deployed':
+                    <td class="position deployed">${story[3]}</td>
+                    %elif story[3] == 'rejected':
+                    <td class="position deployed">${story[3]}</td>
+                    %else:
+                    <td class="position started">started</td>
+                    %endif
+                </tr>
+                % endfor
+            </table>
+          </div>
+        </div>
+        %endfor
+    </div>
+    %endif
+    %if 'bugs_status' in data.keys():
+    <div id="bug_count" class="sectionbox">
+        <p class="sectionlabel">${data['bugs_status']['description']}</p>
+        <div class="section">
+            <table class="datatable">
+                <tbody>
+                %for status_entry in data['bugs_status']['data']:
+                <tr>
+                    %for key in status_entry:
+                    <td><a href="http://bz/buglist.cgi?query_format=advanced&bug_status=${key}&classification=Rhapsody%20Direct">${key}</a></td>
+                    <td>${status_entry[key]}</td>
+                    %endfor
+                </tr>
+                %endfor
+                </tbody>
+            </table>
+        </div>
+    </div>
+    %endif
+    %if 'oncall_backlogs' in data.keys():
+    <div id="oncall_backlogs" class="backlog_type">
+        %for oncall_backlog in data['oncall_backlogs']:
+        <div class="sectionbox">
+          <p class="sectionlabel"><a href="${oncall_backlog['url']}">${oncall_backlog['description']}</a></p>
+          <div class="section">
+            <table class="datatable">
+                <tr>
+                    <th class="story_header">story</th>
+                    <th>points</th>
+                    <th>status</th>
+                </tr>
+                % for story in oncall_backlog['stories']:
+                <tr>
+                    <td class="story_item">${mwt.truncate(story[0],50)}</td>
+                    <td class="point_number">${story[1]}</td>
+                    %if story[3] == 'delivered':
+                    <td class="position delivered">${story[3]}</td>
+                    %elif story[3] == 'accepted':
+                    <td class="position accepted">${story[3]}</td>
+                    %elif story[3] == 'deployed':
+                    <td class="position deployed">${story[3]}</td>
+                    %elif story[3] == 'rejected':
+                    <td class="position deployed">${story[3]}</td>
+                    %else:
+                    <td class="position started">started</td>
+                    %endif
+                </tr>
+                % endfor
+            </table>
+          </div>
+        </div>
+        %endfor
+    </div>
+    %endif
+    %if 'choices' in data.keys():
+    <div id="iteration_links">
+        % for key in data['choices'].keys():
+        <div id="${data['choices'][key]['description']}_box" class="sectionbox">
+            <p class="sectionlabel">${data['choices'][key]['description']}</p>
+            <div class="section">
+                <table class="datatable">
+                    <tbody>
+                    %for item in data['choices'][key]['data']:
+                    <tr>
+                        <td><a href="${data['choices'][key]['url']}${item}">${item}</a></td>
+                    </tr>
+                    %endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        % endfor
+    %endif
+    %if 'popular_tags' in data.keys():
+    <div id="popular_tags">
+        <div id="${data['popular_tags']['description']}_box" class="sectionbox">
+            <p class="sectionlabel">${data['popular_tags']['description']}</p>
+            <div class="section">
+                <table class="datatable">
+                    <tbody>
+                    %for item in data['popular_tags']['data']:
+                    <tr>
+                        <td><a href="${data['popular_tags']['url']}${item[0]}">${item[0]} - ${item[1]}</a></td>
+                    </tr>
+                    %endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    %endif
+    </div>
+    <div id="links">
+        <div id="link_box" class="sectionbox">
+            <p class="sectionlabel">links</p>
+            <div class="section">
+                <table class="datatable">
+                    <tbody>
+                        % for key in data['links'].keys():
+                        <tr><td><a href="${data['links'][key]}">${key}</a></td></tr>
+                        % endfor
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

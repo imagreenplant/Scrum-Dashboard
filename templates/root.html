@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <title>dashboard</title>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css"/>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/root.css"/>
+    <style type="text/css">
+        #team_name {font-size: 3em;}
+        #team_box {width:15%; position:absolute; top:100px; left:200px;}
+    </style>
+</head>
+<body>
+    % for key in choices.keys():
+    <div id="${choices[key]['description']}_box" class="sectionbox">
+        <p class="sectionlabel">${choices[key]['description']}s</p>
+        <div class="section">
+            <table class="datatable">
+                <tbody>
+                %for item in choices[key]['data']:
+                <tr>
+                    <td id="team_name"><a href="team${choices[key]['url_base']}${item}">${item}</a></td>
+                </tr>
+                %endfor
+                </tbody>
+            </table>
+        </div>
+    </div>
+    % endfor
+</body>
+</html>

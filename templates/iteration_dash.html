@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<%
+import mattsWebTools
+mwt = mattsWebTools.MattsWebTools()
+%>
+
+<html>
+  <head>
+    <title> ${ iteration }'s dashboard</title>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css" />
+  </head>
+
+  <body>
+<!--    <p id="greeting">${ iteration }</p>
+    <div class="sectionbox">
+      <p class="sectionlabel">bugs</p>
+      <div class="section">
+        <div id="bugStats">
+          % if bugStats:
+          <table class="datatable">
+              <tr>
+                  <th>user</th>
+                  <th>unclosed bugs</th>
+              </tr>
+              % for stat in bugStats:
+              <tr>
+                  % if stat[0] in ['TRIAGE','QA','DEV','PGM']:
+                  <td>${stat[0]}</td>
+                  % else:
+                  <td><a href="${stat[0]}">${stat[0]}</a></td>
+                  % endif
+                  <td>${stat[1]}</td>
+              </tr>
+              % endfor
+          </table>
+          % else:
+          <p class="sectionlabel">There are no unclosed bugs.</p>
+          % endif
+        </div>
+      </div>
+    </div>  -->
+    <div class="sectionbox">
+      <p class="sectionlabel">tasks</p>
+      <div class="section">
+        <div id="taskStats">
+          % if taskStats:
+          <table class="datatable">
+              <tr>
+                  <th>unclaimed tasks</th>
+                  <th>story</th>
+              </tr>
+              % for task in taskStats:
+              <tr>
+                <td>${mwt.truncate(task['task'],40)}</td>
+                <td>${mwt.truncate(task['story'],20)}</td>
+              </tr>
+              % endfor
+          </table>
+          % else:
+          <p class="sectionlabel">There are no unclaimed tasks.</p>
+          % endif
+        </div>
+      </div>
+    </div>
+    <div class="sectionbox">
+      <p class="sectionlabel">changesets</p>
+      <div class="section">
+        <div id="changeStats">
+          <p class="sectionlabel">Coming soon...</p>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+

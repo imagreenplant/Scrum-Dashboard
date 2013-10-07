@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>New Releases Tool</title>
+    <style>
+      body { font-family: sans-serif; font-size: x-small;}
+      h2.album_title {margin: 1px; margin-top: 3px;}
+      div.album_box { width: 99%; margin-bottom: 10px; border: solid; border-color: black; border-width: thin;
+      padding-left: 5px; padding-bottom: 5px; overflow:auto;}
+      div.nr_box { width: 120px; margin-bottom: 9px; border: solid; border-color: black; border-width: thin; padding-left: 5px; padding-bottom: 5px; float: left; position: absolute;}
+      div.nr_box p {margin: 1px;}
+      div.info_box { position: relative; padding:1px; width=100%;}
+      .prop { height:100px; float:right; width:1px;}
+      div#getNewRelease {position: absolute; left:0px;}
+      div#getAlbum {position: absolute; left:150px;}
+      div#links {position: absolute; left:300px;}
+      .clear { clear:both; height:1px; overflow:hidden; }
+      h4 {margin: 1px;}
+      .seperation { color:violet;}
+      #headertext {font-style: italic}
+      
+      
+    </style>
+  </head>
+  <body>
+    <span id="headertext"><p>This is a list of all new releases based on the MS_Exclusives list.  The getNewReleases call is based on
+    the kaki cache, which updates once per day.  The getAlbum call is based on the rights cache, which updates once per hour.</p></span>
+    % for item in releases:
+    <div class="album_box">
+      <h2 class="album_title"><span class="seperation">||</span> ${item['newReleasesCall']['artist']} <span class="seperation">||</span> ${item['newReleasesCall']['name']} <span class="seperation">||</span> ${item['newReleasesCall']['albumId']} <span class="seperation">||</span></h2>
+      <hr />
+      <div class="info_box">
+        <div class="prop"></div>
+        <div class="nr_box" id="getNewRelease">
+        <h4>getNewReleases call</h4>
+          <p><img src="${item['newReleasesCall']['image']}" height="30px" width="30px" alt="X">${item['newReleasesCall']['albumRights']}<a href="/dash/nr/${item['newReleasesCall']['albumRights']}/">?</a></p>
+        </div>
+        <div class="nr_box" id="getAlbum">
+        <h4>getAlbum call</h4>
+          <p><img src="${item['getAlbumCall']['image']}" height="30px" width="30px">${item['newReleasesCall']['albumRights']}<a href="/dash/nr/${item['getAlbumCall']['albumRights']}/">?</a></p>
+        </div>
+        <div class="nr_box" id="links">
+        <h4>links</h4>
+          <hr />
+          <p><a href="http://rhapsody.com/${item['getAlbumCall']['artist_shortcut']}/${item['newReleasesCall']['shortcut']}">rhap.com</a></p>
+          <p><a href="http://origin.rhapsody.com/${item['getAlbumCall']['artist_shortcut']}/${item['newReleasesCall']['shortcut']}">origin</a></p>
+          <p><a href="http://mp3.rhapsody.com/${item['getAlbumCall']['artist_shortcut']}/${item['newReleasesCall']['shortcut']}">mp3</a></p>
+          <p><a href="http://origin-mp3.rhapsody.com/${item['getAlbumCall']['artist_shortcut']}/${item['newReleasesCall']['shortcut']}">origin-mp3</a></p>
+          <p><a href="http://rds.qa.prognet.com/getjson.php?servername=rds-metadata-01-007.real.com:9380+&serverlist=rds-metadata-01-007.real.com:9380&appname=metadata&method=getAlbum&output=xml&developerKey=4B8C5B7B5B7B5I4H&albumId=${item['newReleasesCall']['albumId']}&cobrandId=40134&filterRightsKey=0&submit=call+via+HTTP&postit=false&anti_cache_string_dV612J=5ux1vn1&submitted=1&formmethod=get">rds.qa</a></p>
+        </div>
+        <div class="clear"></div><div class="clear"></div>
+      </div>
+    </div>
+    % endfor
+  </body>
+</html>

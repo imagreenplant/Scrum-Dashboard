@@ -1,0 +1,67 @@
+<%
+import mattsWebTools
+mwt = mattsWebTools.MattsWebTools()
+import datetime
+%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <title>${tag_name} tag for ${project_name}</title>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css"/>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/tag.css"/>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["barchart"]}); /*imports the api*/
+      //google.setOnLoadCallback(drawChart);
+      function drawChart(iteration,tag_velocity,total_velocity) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Year');
+        data.addColumn('number', '${tag_name}');
+        data.addColumn('number', 'other');
+        data.addRows(1);
+        data.setValue(0, 1, tag_velocity);
+        data.setValue(0, 2, total_velocity - tag_velocity);
+
+        var chart = new google.visualization.BarChart(document.getElementById(iteration + "_chart"));
+        chart.draw(data, {width: 400, height: 80,is3D: true, axisColor: 'gray', isStacked: true,
+                   min: 0, max: 150, borderColor: 'white', axisBackgroundColor: 'white',axisFontSize:8,
+                   tooltipFontSize: 15,tooltipHeight: 60, tooltipWidth: 120,
+                   colors:[{color:'#DC143C', darker:'#EC244C'}, {color:'#B0B0B0', darker:'#C0C0C0'}]});
+      }
+    </script>
+</head>
+<body>
+    % for iteration_entry in iteration_history:
+        % if iteration_entry in tag_history.keys():
+        <div class="uber_sectionbox">
+            <div id="${iteration_entry}" class="table_box">
+                <div class="iteration_info">
+                <%
+                    if tag_history[iteration_entry]['stories'][0][2] > datetime.date.today():
+                        time_string = 'ends on'
+                    else:
+                        time_string = 'ended on'
+                %>
+                  <p class="table_label">${iteration_entry}</p>
+                  <p class="ending_date">${time_string}: ${tag_history[iteration_entry]['stories'][0][2].strftime('%b %d,%Y')}</p>
+                </div>
+                <div class="section">
+                    <table class="datatable">
+                        <tbody>
+                            % for story_item in tag_history[iteration_entry]['stories']:
+                            <tr>
+                                <td>${story_item[0]}</td>
+                                <td class="point_value">${story_item[1]}</td>
+                            </tr>
+                            % endfor
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="${iteration_entry}_chart" class="chart_box"><script type="text/javascript">drawChart("${iteration_entry}",${tag_history[iteration_entry]['tag_velocity']},${tag_history[iteration_entry]['total_velocity']});</script></div>
+            <!--<div style="clear:both"></div>-->
+        </div>
+        % endif
+    % endfor
+</body>
+</html>

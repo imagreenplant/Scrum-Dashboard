@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<%
+import mattsWebTools
+mwt = mattsWebTools.MattsWebTools()
+%>
+
+<html>
+  <head>
+    <title>${member_name.lower()}'s ${iteration.lower()} page</title>
+    <link rel="stylesheet" type="text/css" href="${media_url}dash/dash.css" />
+  </head>
+
+  <body>
+    <p id="greeting">${member_name.lower()} on ${iteration.lower()}</p>
+    <p class="sectionlabel">bugs</p>
+    <div class="section">
+      <div id="bugs">
+        % if bugs:
+        <table class="datatable">
+            <tr>
+                <th>Bug</th>
+                <th>State</th>
+                <th>Description</th>
+            </tr>
+            % for bug in bugs:
+            <tr>
+                <td><a href="https://bz.sea1.rhapsody.com/show_bug.cgi?id=${bug['id']}">${bug['id']}</a></td>
+                <td>${bug['status']}</td>
+                <td>${mwt.truncate(bug['desc'],30)}</td>
+            </tr>
+            % endfor
+        </table>
+        % else:
+        <p class="sectionlabel">You have no bugs in the ${iteration.lower()} iteration.</p>
+        % endif
+      </div>
+    </div>
+    <br />
+    <p class="sectionlabel">tasks</p>
+    <div class="section">
+      <div id="tasks">
+        % if tasks:
+        <table class="datatable">
+            <tr>
+                <th>Tasks</th>
+                <th>Status</th>
+                <th>Story</th>
+            </tr>
+            % for task in tasks:
+            % if task['status'] == 'done':
+            <tr class="taskcomplete">
+            % else:
+            <tr>
+            % endif
+              <td>${mwt.truncate(task['task'],35)}</td>
+              <td>${task['status']}</td>
+              <td>${mwt.truncate(task['story'],35)}</td>
+            </tr>
+            % endfor
+        </table>
+        % else:
+        <p class="sectionlabel">You have no tasks in the ${iteration.lower()} iteration.</p>
+        % endif
+      </div>
+    </div>
+    <p class="sectionlabel">changesets</p>
+    <div class="section">
+      <div id="changesets">
+        <p class="sectionlabel">Coming soon...</p>
+      </div>
+    </div>
+</body>
+</html>
+

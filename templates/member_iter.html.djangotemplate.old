@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <title>{{ member_name }}'s {{ iteration|lower }} page</title>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1/static/dash.css" />
+  </head>
+
+  <body>
+    <p id="greeting">{{ member_name }} on {{ iteration|lower }}(s)</p>
+    <p class="sectionlabel">bugs</p>
+    <div class="section">
+      <div id="bugs">
+        <table class="datatable">
+            <tr>
+                <th>Bug</th>
+                <th>State</th>
+                <th>Description</th>
+            </tr>
+            {% for bug in bugs %}
+            <tr>
+                <td><a href="https://bugs.dev.prognet.com/show_bug.cgi?id={{bug.id}}">{{bug.id}}</a></td>
+                <td>{{bug.status}}</td>
+                <td>{{bug.desc|truncatewords:10}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+    <br />
+    <p class="sectionlabel">tasks</p>
+    <div class="section">
+      <div id="tasks">
+        <table class="datatable">
+            <tr>
+                <th>Tasks</th>
+                <th>Status</th>
+                <th>Story</th>
+            </tr>
+            {% for task in tasks %}
+            {% ifequal task.status 'done'%}
+            <tr class="taskcomplete">
+            {% else %}
+            <tr>
+            {% endifequal %}
+              <td>{{task.task|truncatewords:10}}</td>
+              <td>{{task.status}}</td>
+              <td>{{task.story|truncatewords:8}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+    </div>
+    <p class="sectionlabel">changesets</p>
+    <div class="section">
+      <div id="changesets">
+        <p class="sectionlabel">Coming soon...</p>
+      </div>
+    </div>
+</body>
+</html>
+

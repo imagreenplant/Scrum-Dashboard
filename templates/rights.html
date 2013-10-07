@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <title>Rights Description</title>
+    <style>
+      body { font-family: sans-serif; font-size: large;}
+    </style>
+  </head>
+  <body>
+    <h2>This album has the following rights:</h2>
+    <hr>
+    % for item in rights:
+    <p>${item}</p>
+    % endfor
+  </body>
+</html>
